@@ -16,4 +16,6 @@ Anschließend müssen in dieser Datei die...
 - der Empfänger der Mail,
 - der Link zum Download der Formulardaten...
 
-eingetragen werden. 
+eingetragen werden.
+
+Weiterhin sollte der Inhalt von antworten.txt zurückgesetzt werden auf 1.
