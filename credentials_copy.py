@@ -1,0 +1,9 @@
+USERNAME_FORM = ""
+PASSWORD_FORM = ""
+USERNAME_MAIL = ""
+PASSWORD_MAIL = ""
+SMTPSERVER = ''
+RECIPIENT = ""
+SUBJECT = f"Dies ist der Betreff der Mail"
+NEXTCLOUDLINK = ""
+ABSENDER = ""
