@@ -6,7 +6,7 @@ Mit diesem Script, lässt man es per Cron aufrufen, lassen sich die bisherigen A
 
 ## Nötige Anpassungen
 
-Die Datei credentials_copy.py muss umbenannt werden ist credentials.py.
+Die Datei credentials_copy.py muss umbenannt werden in credentials.py.
 
 Anschließend müssen in dieser Datei die...
 
