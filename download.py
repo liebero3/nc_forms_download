@@ -3,6 +3,7 @@ import credentials
 import csv
 import openpyxl
 import smtplib
+from datetime import datetime
 from email.message import EmailMessage
 from email.mime.base import MIMEBase
 from email import encoders
@@ -60,27 +61,29 @@ def csv_to_excel(csv_file, excel_file):
 response = requests.get(credentials.NEXTCLOUDLINK,
                         auth=(credentials.USERNAME_FORM, credentials.PASSWORD_FORM))
 
-with open("anmeldungen.csv", "w", newline="") as f:
-    f.write(response.text)
-
-anzahlAnmeldungen = csv_to_excel("anmeldungen.csv", "anmeldungen.xlsx") - 1
+try:
+    with open(f"{credentials.WD}anmeldungen.csv", "w", newline="") as f:
+        f.write(response.text)
+        f.flush()
+except Exception as e:
+    print("Fehler in write(response.text): ", e)
+anzahlAnmeldungen = csv_to_excel(f"{credentials.WD}anmeldungen.csv",
+                                 f"{credentials.WD}anmeldungen.xlsx") - 1
 gespeichert = 0
-
-
-with open("antworten.txt", "r") as f:
-    gespeichert = f.readlines()[0]
-
-
+try:
+    with open(f"{credentials.WD}antworten.txt", "r") as f:
+        gespeichert = f.readlines()[0]
+except Exception as e:
+    print("Fehler in read(antworten.txt): ", e)
 if gespeichert != str(anzahlAnmeldungen):
     print("gespeichert: ", gespeichert)
     print("Anzahl Antworten im download: ", anzahlAnmeldungen)
-
-    with open("antworten.txt", "w") as f:
-        f.writelines(str(anzahlAnmeldungen))
-
-    with open("anmeldungen.csv", "w", newline="") as f:
-        f.write(response.text)
-
+    try:
+        with open(f"{credentials.WD}antworten.txt", "w") as f:
+            f.writelines(str(anzahlAnmeldungen))
+            f.flush()
+    except Exception as e:
+        print("Fehler in write(Anzahl Anmeldungen): ", e)
     ATTACHMENTS_LIST = [
         "anmeldungen.xlsx"
     ]
@@ -93,3 +96,4 @@ if gespeichert != str(anzahlAnmeldungen):
     print("Mail gesendet.")
 else:
     print("keine neuen Einträge.")
+    print(f"Bisher haben sich {anzahlAnmeldungen} Leute gemeldet.")
